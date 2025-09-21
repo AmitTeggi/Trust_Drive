@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Hire a Driver</h2>
+<form method="post">{% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="origin" class="form-label">Pickup Location</label>
+                <input type="text" class="form-control" name="origin" required>
+            </div>
+            <div class="mb-3">
+                <label for="destination" class="form-label">Drop Location</label>
+                <input type="text" class="form-control" name="destination" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="time" class="form-label">Time</label>
+                <input type="time" class="form-control" name="time" required>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+</form>
+{% endblock %}

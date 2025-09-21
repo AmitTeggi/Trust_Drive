@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Rate Driver</h2>
+<form method="post">{% csrf_token %}
+  <input type="number" name="rating" class="form-control mb-2" placeholder="1-5" min="1" max="5" required>
+  <textarea name="comment" class="form-control mb-2" placeholder="Comments"></textarea>
+  <button type="submit" class="btn btn-success">Submit Rating</button>
+</form>
+{% endblock %}

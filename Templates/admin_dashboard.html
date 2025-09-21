@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Manage Users</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>{% if user.blocked %}Blocked{% else %}Active{% endif %}</td>
+                    <td>
+                        <form method="post" style="display:inline;">{% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            {% if user.blocked %}
+                                <button type="submit" name="unblock_user" class="btn btn-sm btn-success">Unblock</button>
+                            {% else %}
+                                <button type="submit" name="block_user" class="btn btn-sm btn-warning">Block</button>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h4>All Rides</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr><th>From</th><th>To</th><th>Driver</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for ride in rides %}
+                <tr>
+                    <td>{{ ride.origin }}</td>
+                    <td>{{ ride.destination }}</td>
+                    <td>{{ ride.user.username }}</td>
+                    <td>{{ ride.status }}</td>
+                    <td>
+                        <form method="post" style="display:inline;">{% csrf_token %}
+                            <input type="hidden" name="ride_id" value="{{ ride.id }}">
+                            <button type="submit" name="cancel_ride" class="btn btn-sm btn-danger">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

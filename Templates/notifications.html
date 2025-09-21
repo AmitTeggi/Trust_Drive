@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Notifications</h2>
+<div class="list-group">
+    {% for notification in notifications %}
+    <div class="list-group-item {% if not notification.read %}list-group-item-warning{% endif %}">
+        <p class="mb-1">{{ notification.message }}</p>
+        <small>{{ notification.createdat }}</small>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

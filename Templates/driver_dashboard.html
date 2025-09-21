@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Driver Dashboard</h2>
+<div class="row">
+    <div class="col-md-4">
+        <a href="{% url 'post_ride' %}" class="btn btn-primary btn-lg w-100 mb-3">Post New Ride</a>
+        <a href="{% url 'manage_rides' %}" class="btn btn-secondary btn-lg w-100 mb-3">Manage My Rides</a>
+    </div>
+    <div class="col-md-8">
+        <h4>My Posted Rides</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr><th>From</th><th>To</th><th>Date</th><th>Seats</th><th>Price</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+                {% for ride in my_rides %}
+                <tr>
+                    <td>{{ ride.origin }}</td>
+                    <td>{{ ride.destination }}</td>
+                    <td>{{ ride.ridedate }}</td>
+                    <td>{{ ride.seats }}</td>
+                    <td>${{ ride.price }}</td>
+                    <td>{{ ride.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h4>Ride Requests</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Passenger</th><th>Ride</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for request in ride_requests %}
+                <tr>
+                    <td>{{ request.passenger.username }}</td>
+                    <td>{{ request.ride.origin }} to {{ request.ride.destination }}</td>
+                    <td>{{ request.status }}</td>
+                    <td>
+                        {% if request.status == 'pending' %}
+                            <form method="post" style="display:inline;">{% csrf_token %}
+                                <input type="hidden" name="request_id" value="{{ request.id }}">
+                                <button type="submit" name="accept_request" class="btn btn-sm btn-success">Accept</button>
+                                <button type="submit" name="deny_request" class="btn btn-sm btn-danger">Deny</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

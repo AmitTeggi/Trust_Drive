@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Post a Ride</h2>
+<form method="post">{% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="origin" class="form-label">Origin</label>
+                <input type="text" class="form-control" name="origin" required>
+            </div>
+            <div class="mb-3">
+                <label for="destination" class="form-label">Destination</label>
+                <input type="text" class="form-control" name="destination" required>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" name="date" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="seats" class="form-label">Available Seats</label>
+                <input type="number" class="form-control" name="seats" min="1" max="8" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price per Seat ($)</label>
+                <input type="number" class="form-control" name="price" step="0.01" required>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Ride</button>
+</form>
+{% endblock %}

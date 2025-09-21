@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Rider Dashboard</h2>
+<div class="row">
+    <div class="col-md-4">
+        <a href="{% url 'search_ride' %}" class="btn btn-primary btn-lg w-100 mb-3">Search Rides</a>
+        <a href="{% url 'hire_driver' %}" class="btn btn-secondary btn-lg w-100 mb-3">Hire Driver</a>
+    </div>
+    <div class="col-md-8">
+        <h4>My Ride Requests</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Ride</th><th>Driver</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for request in joined_rides %}
+                <tr>
+                    <td>{{ request.ride.origin }} to {{ request.ride.destination }}</td>
+                    <td>{{ request.ride.user.username }}</td>
+                    <td>{{ request.status }}</td>
+                    <td>{{ request.createdat }}</td>
+                    <td>
+                        {% if request.status == 'accepted' %}
+                            <a href="{% url 'rate_driver' %}" class="btn btn-sm btn-info">Rate Driver</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
