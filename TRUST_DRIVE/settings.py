@@ -116,5 +116,3 @@ CSRF_COOKIE_SECURE = False
 # Session engine
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # default
-
-#hello
